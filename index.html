@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice Garden Restaurant - Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1>🍽️ Spice Garden</h1>
+                <p>Authentic Indian Restaurant Management System</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                <p class="login-hint">Demo: username: admin, password: admin123</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app hidden">
+        <!-- Navigation Header -->
+        <header class="navbar">
+            <div class="container">
+                <div class="navbar-content">
+                    <div class="navbar-brand">
+                        <h2>🍽️ Spice Garden</h2>
+                    </div>
+                    <nav class="navbar-nav">
+                        <button class="nav-link active" data-section="menu">Menu</button>
+                        <button class="nav-link" data-section="reservations">Reservations</button>
+                        <button class="cart-btn" id="cartBtn">
+                            🛒 Cart (<span id="cartCount">0</span>) - ₹<span id="cartTotal">0.00</span>
+                        </button>
+                        <button class="btn btn--outline btn--sm" id="logoutBtn">Logout</button>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Menu Section -->
+        <section id="menuSection" class="section active">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Authentic Indian Menu</h2>
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="form-control search-input" placeholder="Search for dishes, breads, desserts...">
+                    </div>
+                </div>
+
+                <!-- Menu Categories -->
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">All Items</button>
+                    <button class="category-btn" data-category="veg">🥗 Vegetarian</button>
+                    <button class="category-btn" data-category="non-veg">🍖 Non-Vegetarian</button>
+                    <button class="category-btn" data-category="breads">🫓 Indian Breads</button>
+                    <button class="category-btn" data-category="desserts">🍮 Desserts</button>
+                    <button class="category-btn" data-category="mocktails">🥤 Mocktails</button>
+                    <button class="category-btn" data-category="combos">🍽️ Food Combos</button>
+                </div>
+
+                <!-- Menu Items Grid -->
+                <div id="menuGrid" class="menu-grid">
+                    <!-- Menu items will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reservations Section -->
+        <section id="reservationsSection" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Make a Reservation</h2>
+                    <p>Book your table for a wonderful Indian dining experience</p>
+                </div>
+
+                <div class="reservation-container">
+                    <form id="reservationForm" class="reservation-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerName" class="form-label">Full Name</label>
+                                <input type="text" id="customerName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customerEmail" class="form-label">Email Address</label>
+                                <input type="email" id="customerEmail" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="customerPhone" class="form-label">Phone Number</label>
+                                <input type="tel" id="customerPhone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestCount" class="form-label">Number of Guests</label>
+                                <select id="guestCount" class="form-control" required>
+                                    <option value="">Select guests</option>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2">2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                    <option value="6">6+ Guests</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reservationDate" class="form-label">Reservation Date</label>
+                                <input type="date" id="reservationDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reservationTime" class="form-label">Preferred Time</label>
+                                <select id="reservationTime" class="form-control" required>
+                                    <option value="">Select time</option>
+                                    <option value="6:00 PM">6:00 PM</option>
+                                    <option value="6:30 PM">6:30 PM</option>
+                                    <option value="7:00 PM">7:00 PM</option>
+                                    <option value="7:30 PM">7:30 PM</option>
+                                    <option value="8:00 PM">8:00 PM</option>
+                                    <option value="8:30 PM">8:30 PM</option>
+                                    <option value="9:00 PM">9:00 PM</option>
+                                    <option value="9:30 PM">9:30 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="specialRequests" class="form-label">Special Requests (Optional)</label>
+                            <textarea id="specialRequests" class="form-control" rows="3" placeholder="Any dietary restrictions, special occasions, or seating preferences..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Book Reservation</button>
+                    </form>
+
+                    <!-- Reservation Confirmation -->
+                    <div id="reservationConfirmation" class="reservation-confirmation hidden">
+                        <div class="confirmation-icon">✅</div>
+                        <h3>Reservation Confirmed!</h3>
+                        <p>Confirmation details have been sent to your email address.</p>
+                        <div id="reservationDetails" class="reservation-details">
+                            <!-- Reservation details will be populated by JavaScript -->
+                        </div>
+                        <button class="btn btn--secondary" id="newReservationBtn">Make Another Reservation</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Your Cart</h3>
+                <button class="modal-close" id="closeCartModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems" class="cart-items">
+                    <!-- Cart items will be populated by JavaScript -->
+                </div>
+                <div class="cart-empty hidden" id="cartEmpty">
+                    <p>Your cart is empty</p>
+                    <button class="btn btn--secondary" id="continueShopping">Continue Shopping</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="cart-summary">
+                    <div class="cart-subtotal">
+                        <span>Subtotal: ₹<span id="cartSubtotal">0.00</span></span>
+                    </div>
+                    <div class="cart-tax">
+                        <span>Tax (10%): ₹<span id="cartTax">0.00</span></span>
+                    </div>
+                    <div class="cart-total">
+                        <span>Total: ₹<span id="cartFinalTotal">0.00</span></span>
+                    </div>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn--secondary" id="clearCart">Clear Cart</button>
+                    <button class="btn btn--primary" id="proceedToCheckout">Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Checkout</h3>
+                <button class="modal-close" id="closeCheckoutModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="checkout-summary">
+                    <h4>Order Summary</h4>
+                    <div id="checkoutItems" class="checkout-items">
+                        <!-- Checkout items will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="payment-section">
+                    <h4>Payment Method</h4>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="credit" checked>
+                            <span>💳 Credit Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="debit">
+                            <span>💳 Debit Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi">
+                            <span>📱 UPI Payment</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cash">
+                            <span>💵 Cash on Delivery</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="checkout-total">
+                    <h3>Total: ₹<span id="checkoutFinalTotal">0.00</span></h3>
+                </div>
+                <div class="checkout-actions">
+                    <button class="btn btn--secondary" id="backToCart">Back to Cart</button>
+                    <button class="btn btn--primary" id="placeOrder">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="orderConfirmationModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Confirmed!</h3>
+                <button class="modal-close" id="closeOrderModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="order-success">
+                    <div class="success-icon">🎉</div>
+                    <h4>Thank you for your order!</h4>
+                    <p>Your order ID is: <strong id="orderId"></strong></p>
+                    <p>Estimated delivery time: 30-45 minutes</p>
+                    <div id="orderSummaryFinal" class="order-summary-final">
+                        <!-- Final order summary will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn--primary" id="newOrderBtn">Place New Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
