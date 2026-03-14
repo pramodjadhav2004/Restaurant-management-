@@ -77,7 +77,7 @@ class FairnessHandler {
     queue.forEach(entry => {
       const waitTime = analysis.waitingTimes[entry._id]; // Safely get the exact wait time
 
-      if (waitTime > this.maxAllowedWait) {
+      if (waitTime !== undefined && waitTime > this.maxAllowedWait) {
         entry.priority = (entry.priority || 0) + this.starvationBoost;
         entry.starvationPrevented = true;
       }
